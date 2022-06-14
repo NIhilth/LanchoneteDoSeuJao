@@ -38,7 +38,7 @@ public class Main {
     }
 
     private static void menu() {
-        System.out.println("----- MENU ----- \n1 - Listar o cardápio de hoje \n2 - Cadastrar novo pedido \n3 - Editar o preço de um pedido \n4 - Remover Pedido \n5 - Sair");
+        System.out.println("----- MENU ----- \n1 - Listar o cardápio de hoje \n2 - Cadastrar novo pedido \n3 - Editar o preço de um pedido \n4 - Remover Pedido \n5 - Fazer pedido \n6 - Sair");
         int opcao = sc.nextInt();
         try {
             switch (opcao) {
@@ -46,17 +46,57 @@ public class Main {
                 case 2 -> cadastrar();
                 case 3 -> editar();
                 case 4 -> remover();
-                case 5 -> {
+                case 5 -> fazerPedido();
+                case 6 -> {
                     System.out.println("Programa encerrado!");
                     System.exit(0);
                 }
                 default -> throw new OpcaoInvalidaException();
-
             }
         } catch (RuntimeException idiota) {
             System.out.println(idiota.getClass().getSimpleName() + ": " + idiota.getMessage() + "\n");
         } finally {
             menu();
+        }
+    }
+
+    private static void fazerPedido() {
+        System.out.println("Pedido");
+        int opcao = selecionaTipo("pedir");
+
+        if (opcao == 0) {
+            menu();
+        } else if (opcao > 0 && opcao < 4) {
+            Pedido pedido = null;
+            String comida = "";
+            switch (opcao) {
+                case 1 -> {
+                    pedido = new Lanche();
+                    comida = "lanche";
+                }
+                case 2 -> {
+                    pedido = new Bebida();
+                    comida = "bebida";
+                }
+                case 3 -> {
+                    pedido = new Outro();
+                    comida = "outro";
+                }
+            }
+            pedido.listar();
+
+            System.out.println("Qual " + comida + " você gostaria de pedir?");
+            opcao = sc.nextInt();
+
+            if(opcao < 0 || opcao > 4){
+                throw new OpcaoInvalidaException();
+            }
+
+            System.out.println("Pedido concluído!");
+            menu();
+
+        } else {
+            throw new OpcaoInvalidaException();
         }
     }
 
@@ -77,7 +117,7 @@ public class Main {
     }
 
     private static int selecionaTipo(String acao) {
-        System.out.println("Qual tipo de pedido vc quer " + acao + " ? \n1 - Lanche \n2 - Bebida \n3 - Outro \nDigite 0 para Voltar");
+        System.out.println("Qual tipo de comida vc quer " + acao + " ? \n1 - Lanche \n2 - Bebida \n3 - Outro \nDigite 0 para Voltar");
         return sc.nextInt();
     }
 
@@ -99,8 +139,8 @@ public class Main {
         System.out.println("Preço:");
         double preco = sc.nextDouble();
 
-        if(preco < 0){
-            throw  new ValorInvalidoException("Preço");
+        if (preco < 0) {
+            throw new ValorInvalidoException("Preço");
         }
 
         switch (opcao) {
@@ -108,8 +148,8 @@ public class Main {
                 System.out.println("Peso: ");
                 double peso = sc.nextDouble();
 
-                if(peso < 0){
-                    throw  new ValorInvalidoException("Peso");
+                if (peso < 0) {
+                    throw new ValorInvalidoException("Peso");
                 }
 
                 perguntaCerteza("cadastrar");
@@ -119,8 +159,8 @@ public class Main {
                 System.out.println("Volume (L): ");
                 double volume = sc.nextDouble();
 
-                if(volume < 0){
-                    throw  new ValorInvalidoException("Volume");
+                if (volume < 0) {
+                    throw new ValorInvalidoException("Volume");
                 }
 
                 perguntaCerteza("cadastrar");
@@ -130,8 +170,8 @@ public class Main {
                 System.out.println("Tamanho: ");
                 String tamanho = sc.next();
 
-                if(preco < 0){
-                    throw  new ValorInvalidoException("Tamanho");
+                if (preco < 0) {
+                    throw new ValorInvalidoException("Tamanho");
                 }
 
                 perguntaCerteza("cadastrar");
@@ -184,8 +224,8 @@ public class Main {
             System.out.println("Qual o novo preço?");
             double preco = sc.nextDouble();
 
-            if(preco < 0){
-                throw  new ValorInvalidoException("Preço");
+            if (preco < 0) {
+                throw new ValorInvalidoException("Preço");
             }
 
             listaPedidos.get(checar).setPreco(preco);
