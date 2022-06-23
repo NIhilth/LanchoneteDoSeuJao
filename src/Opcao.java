@@ -45,6 +45,10 @@ public abstract class Opcao {
         return quantidade;
     }
 
+    public void setPreco(double preco) {
+        this.preco = preco;
+    }
+
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
     }
@@ -57,6 +61,10 @@ public abstract class Opcao {
     public static void remover(Opcao opcao) {
         cardapio.remove(opcao);
         reordenar();
+    }
+
+    public static void editar(Opcao opcao, double preco){
+        opcao.setPreco(preco);
     }
 
     public static Opcao procurarOpcao(int codigo) {

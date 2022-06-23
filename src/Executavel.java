@@ -21,14 +21,16 @@ public class Executavel {
                 2- Mostrar o cardápio
                 3- Remover do cardápio
                 4- Fazer pedido
-                5- Finalizar
+                5- Editar
+                6- Finalizar
                 >\040""");
         switch (sc.nextInt()) {
             case 1 -> Opcao.inserir(coletarDados());
             case 2 -> System.out.print(Opcao.mostrarOpcoes());
             case 3 -> Opcao.remover(escolherOpcao());
             case 4 -> fazerPedido();
-            case 5 -> System.exit(0);
+            case 5 -> editar();
+            case 6 -> System.exit(0);
             default -> throw new OpcaoMenuInvalidaException();
         }
     }
@@ -61,6 +63,25 @@ public class Executavel {
         } while (opcao != 4);
     }
 
+    private static void editar() {
+        System.out.println(Opcao.mostrarOpcoes());
+        Opcao opcao = escolherOpcao();
+
+
+        System.out.println("Qual o novo preço?");
+        double preco = sc.nextDouble();
+
+        if (preco < 0) {
+            throw new PrecoInvalidoException();
+        }
+
+        Opcao.editar(opcao, preco);
+
+        System.out.println("Edição completa!");
+
+        menuPrincipal();
+    }
+
     private static Opcao escolherOpcao() {
         System.out.print("Informe a opção desejada: \n> ");
         return Opcao.procurarOpcao(sc.nextInt());
@@ -79,7 +100,7 @@ public class Executavel {
         System.out.print("Informe o preço: \n> R$ ");
         double preco = sc.nextDouble();
 
-        if(preco < 0){
+        if (preco < 0) {
             throw new PrecoInvalidoException();
         }
 
@@ -88,7 +109,7 @@ public class Executavel {
                 System.out.print("Informe o peso (em quilos): \n> ");
                 double peso = sc.nextDouble();
 
-                if(peso < 0){
+                if (peso < 0) {
                     throw new PesoInvalidoException();
                 }
 
@@ -98,17 +119,17 @@ public class Executavel {
                 System.out.print("Informe o tamanho: \n> ");
                 String tamanho = sc.next();
 
-                if(!tamanho.equals("Pequena") && !tamanho.equals("Média") && !tamanho.equals("Grande") ){
+                if (!tamanho.equals("Pequena") && !tamanho.equals("Média") && !tamanho.equals("Grande")) {
                     throw new TamanhoInvalidoException();
                 }
 
                 return new Porcao(descricao, preco, tamanho);
             }
             case 3 -> {
-               System.out.print("Informe o volume (em litros): \n> ");
+                System.out.print("Informe o volume (em litros): \n> ");
                 double volume = sc.nextDouble();
 
-                if(volume < 0){
+                if (volume < 0) {
                     throw new VolumeInvalidoException();
                 }
 
@@ -128,19 +149,19 @@ public class Executavel {
         Opcao.inserir(xburger);
         Opcao.inserir(xbacon);
 
-        Bebida refri200 = new Bebida("Refrigerante",5.0,0.2);
-        Bebida refri500 = new Bebida("Refrigerante",10.0,0.5);
-        Bebida suco200 = new Bebida("Suco",6.0,0.2);
-        Bebida suco500 = new Bebida("Suco",12.0,0.5);
+        Bebida refri200 = new Bebida("Refrigerante", 5.0, 0.2);
+        Bebida refri500 = new Bebida("Refrigerante", 10.0, 0.5);
+        Bebida suco200 = new Bebida("Suco", 6.0, 0.2);
+        Bebida suco500 = new Bebida("Suco", 12.0, 0.5);
         Opcao.inserir(refri200);
         Opcao.inserir(refri500);
         Opcao.inserir(suco200);
         Opcao.inserir(suco500);
 
-        Porcao fritasP = new Porcao("Batata Frita",3.5,"Pequena");
-        Porcao fritasM = new Porcao("Batata Frita",4.5,"Média");
-        Porcao fritasG = new Porcao("Batata Frita",5.5,"Grande");
-        Porcao salada = new Porcao("Salada",8.0,"Média");
+        Porcao fritasP = new Porcao("Batata Frita", 3.5, "Pequena");
+        Porcao fritasM = new Porcao("Batata Frita", 4.5, "Média");
+        Porcao fritasG = new Porcao("Batata Frita", 5.5, "Grande");
+        Porcao salada = new Porcao("Salada", 8.0, "Média");
         Opcao.inserir(fritasP);
         Opcao.inserir(fritasM);
         Opcao.inserir(fritasG);
