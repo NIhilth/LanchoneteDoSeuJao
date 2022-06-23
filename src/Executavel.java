@@ -87,11 +87,21 @@ public class Executavel {
             case 1 -> {
                 System.out.print("Informe o peso (em quilos): \n> ");
                 double peso = sc.nextDouble();
+
+                if(peso < 0){
+
+                }
+
                 return new Lanche(descricao, preco, peso);
             }
             case 2 -> {
                 System.out.print("Informe o tamanho: \n> ");
                 String tamanho = sc.next();
+
+                if(tamanho){
+
+                }
+
                 return new Porcao(descricao, preco, tamanho);
             }
             case 3 -> {
