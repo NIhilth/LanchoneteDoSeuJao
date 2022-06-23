@@ -1,50 +1,35 @@
-public abstract class Pedido {
-
-    private int codigo;
-    private String descricao;
-    private double preco;
-
-    public Pedido() {
+import java.util.ArrayList;
+public class Pedido {
+    private ArrayList<Opcao> pedido = new ArrayList<>();
+    public void adicionar(Opcao opcao){
+        boolean existe = false;
+        for (Opcao opcao1 : pedido){
+            if(opcao.equals(opcao1)){
+                existe = true;
+                opcao1.setQuantidade(opcao1.getQuantidade()+1);
+                break;
+            }
+        }
+        if (!existe) {
+            opcao.setQuantidade(1);
+            pedido.add(opcao);
+        }
     }
-
-    public Pedido(int codigo, String descricao, double preco) {
-        this.codigo = codigo;
-        this.descricao = descricao;
-        this.preco = preco;
+    public void remover(Opcao opcao){
+        pedido.remove(opcao);
     }
-
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public double getPreco() {
-        return preco;
-    }
-
-    public void setPreco(double preco) {
-        this.preco = preco;
-    }
-
     @Override
-    public String toString() {
-        return "\nCÃ³digo: " + codigo +
-                "\nDescriÃ§Ã£o: " + descricao +
-                "\nPreÃ§o: " + preco;
+    public String toString(){
+        double total = 0;
+        String cupom = """
+                    > > > > > > > > PEDIDO < < < < < < < <
+                    COD DESCRIÇÃO            QTD PREÇO
+                    """;
+        for (Opcao opcao: pedido){
+            cupom += opcao.toStringPedido() + "\n";
+            total += opcao.getPreco() * opcao.getQuantidade();
+        }
+        cupom += String.format("TOTAL:  \t\t\t\t\t R$ %.2f", total);
+        return cupom;
     }
-
-    public abstract void listar();
-
-    public abstract int valida(int codigo);
 }

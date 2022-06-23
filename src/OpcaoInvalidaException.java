@@ -1,3 +1,5 @@
-public class OpcaoInvalidaException extends RuntimeException{
-    public OpcaoInvalidaException(){super("Op√ß√£o inv√°lida!");}
+public class OpcaoInvalidaException extends RuntimeException {
+    public OpcaoInvalidaException(){
+        super("OpÁ„o n„o encontrada!");
+    }
 }
