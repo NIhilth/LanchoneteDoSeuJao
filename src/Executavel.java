@@ -50,20 +50,15 @@ public class Executavel {
                     System.out.println(Opcao.mostrarOpcoes());
                     pedido.adicionar(escolherOpcao());
                 }
-                case 2 -> System.out.println(pedido.toString());
+                case 2 -> System.out.println(pedido);
                 case 3 -> pedido.remover(escolherOpcao());
                 case 4 -> {
-                    System.out.println(pedido.toString());
+                    System.out.println(pedido);
                     System.out.println("Volte sempre!");
                 }
                 default -> throw new OpcaoMenuInvalidaException();
             }
         } while (opcao != 4);
-    }
-
-    private static double valor() {
-        System.out.print("Informe o valor da operação: \n> ");
-        return sc.nextDouble();
     }
 
     private static Opcao escolherOpcao() {
@@ -83,13 +78,18 @@ public class Executavel {
         String descricao = sc.next();
         System.out.print("Informe o preço: \n> R$ ");
         double preco = sc.nextDouble();
+
+        if(preco < 0){
+            throw new PrecoInvalidoException();
+        }
+
         switch (opcao) {
             case 1 -> {
                 System.out.print("Informe o peso (em quilos): \n> ");
                 double peso = sc.nextDouble();
 
                 if(peso < 0){
-
+                    throw new PesoInvalidoException();
                 }
 
                 return new Lanche(descricao, preco, peso);
@@ -98,8 +98,8 @@ public class Executavel {
                 System.out.print("Informe o tamanho: \n> ");
                 String tamanho = sc.next();
 
-                if(tamanho){
-
+                if(!tamanho.equals("Pequena") && !tamanho.equals("Média") && !tamanho.equals("Grande") ){
+                    throw new TamanhoInvalidoException();
                 }
 
                 return new Porcao(descricao, preco, tamanho);
@@ -107,11 +107,17 @@ public class Executavel {
             case 3 -> {
                System.out.print("Informe o volume (em litros): \n> ");
                 double volume = sc.nextDouble();
+
+                if(volume < 0){
+                    throw new VolumeInvalidoException();
+                }
+
                 return new Bebida(descricao, preco, volume);
             }
             default -> throw new OpcaoMenuInvalidaException();
         }
     }
+
     private static void addPadrao() {
         Lanche xsalada = new Lanche("X-Salada", 12.0, 0.8);
         Lanche xtudo = new Lanche("X-Tudo", 18.0, 1.2);
