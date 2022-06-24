@@ -6,7 +6,6 @@ public class Bebida extends Opcao {
         this.volume = volume;
     }
 
-
     @Override
     public String toString() {
         return String.format("%-6s %-3d %-19s R$ %.2f",this.getClass().getSimpleName(),this.getCodigo(),this.getDescricao()+String.format(" %.3fl",this.volume), this.getPreco());

@@ -1,3 +1,4 @@
+import java.util.Collections;
 import java.util.Scanner;
 
 public class Executavel {
@@ -25,12 +26,14 @@ public class Executavel {
                 6- Finalizar
                 >\040""");
         switch (sc.nextInt()) {
-            case 1 -> Opcao.inserir(coletarDados());
+            case 1 -> coletarDados().inserir();
             case 2 -> System.out.print(Opcao.mostrarOpcoes());
-            case 3 -> Opcao.remover(escolherOpcao());
+            case 3 -> {
+                Opcao opcao = escolherOpcao();
+                opcao.remover();
+            }
             case 4 -> fazerPedido();
-            case 5 -> editar();
-            case 6 -> System.exit(0);
+            case 5 -> System.exit(0);
             default -> throw new OpcaoMenuInvalidaException();
         }
     }
@@ -50,10 +53,10 @@ public class Executavel {
             switch (opcao) {
                 case 1 -> {
                     System.out.println(Opcao.mostrarOpcoes());
-                    pedido.adicionar(escolherOpcao());
+                    pedido.inserir();
                 }
                 case 2 -> System.out.println(pedido);
-                case 3 -> pedido.remover(escolherOpcao());
+                case 3 -> pedido.remover();
                 case 4 -> {
                     System.out.println(pedido);
                     System.out.println("Volte sempre!");
@@ -66,7 +69,6 @@ public class Executavel {
     private static void editar() {
         System.out.println(Opcao.mostrarOpcoes());
         Opcao opcao = escolherOpcao();
-
 
         System.out.println("Qual o novo preço?");
         double preco = sc.nextDouble();
@@ -82,7 +84,7 @@ public class Executavel {
         menuPrincipal();
     }
 
-    private static Opcao escolherOpcao() {
+    public static Opcao escolherOpcao() {
         System.out.print("Informe a opção desejada: \n> ");
         return Opcao.procurarOpcao(sc.nextInt());
     }
@@ -144,27 +146,28 @@ public class Executavel {
         Lanche xtudo = new Lanche("X-Tudo", 18.0, 1.2);
         Lanche xburger = new Lanche("X-Burger", 10.0, 0.6);
         Lanche xbacon = new Lanche("X-Bacon", 15.0, 1.0);
-        Opcao.inserir(xsalada);
-        Opcao.inserir(xtudo);
-        Opcao.inserir(xburger);
-        Opcao.inserir(xbacon);
+        Collections.addAll(Opcao.cardapio, xsalada, xtudo, xburger, xbacon);
+//        xsalada.inserir();
+//        xtudo.inserir();
+//        xburger.inserir();
+//        xbacon.inserir();
 
         Bebida refri200 = new Bebida("Refrigerante", 5.0, 0.2);
         Bebida refri500 = new Bebida("Refrigerante", 10.0, 0.5);
         Bebida suco200 = new Bebida("Suco", 6.0, 0.2);
         Bebida suco500 = new Bebida("Suco", 12.0, 0.5);
-        Opcao.inserir(refri200);
-        Opcao.inserir(refri500);
-        Opcao.inserir(suco200);
-        Opcao.inserir(suco500);
+        refri200.inserir();
+        refri500.inserir();
+        suco200.inserir();
+        suco500.inserir();
 
         Porcao fritasP = new Porcao("Batata Frita", 3.5, "Pequena");
         Porcao fritasM = new Porcao("Batata Frita", 4.5, "Média");
         Porcao fritasG = new Porcao("Batata Frita", 5.5, "Grande");
         Porcao salada = new Porcao("Salada", 8.0, "Média");
-        Opcao.inserir(fritasP);
-        Opcao.inserir(fritasM);
-        Opcao.inserir(fritasG);
-        Opcao.inserir(salada);
+        fritasP.inserir();
+        fritasM.inserir();
+        fritasG.inserir();
+        salada.inserir();
     }
 }

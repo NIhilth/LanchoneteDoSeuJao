@@ -1,6 +1,6 @@
 import java.util.ArrayList;
-public abstract class Opcao {
-    private static ArrayList<Opcao> cardapio = new ArrayList<>();
+public abstract class Opcao  implements Interface {
+    public static ArrayList<Opcao> cardapio = new ArrayList<>();
     private int quantidade;
     private String descricao;
     private double preco;
@@ -53,13 +53,15 @@ public abstract class Opcao {
         this.quantidade = quantidade;
     }
 
-    public static void inserir(Opcao opcao) {
-        cardapio.add(opcao);
+    @Override
+    public void inserir() {
+        cardapio.add(this);
         reordenar();
     }
 
-    public static void remover(Opcao opcao) {
-        cardapio.remove(opcao);
+    @Override
+    public void remover() {
+        cardapio.remove(this);
         reordenar();
     }
 

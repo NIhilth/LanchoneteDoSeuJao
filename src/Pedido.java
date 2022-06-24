@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-public class Pedido {
+public class Pedido implements Interface{
     private ArrayList<Opcao> pedido = new ArrayList<>();
     public void adicionar(Opcao opcao){
         boolean existe = false;
@@ -15,9 +15,25 @@ public class Pedido {
             pedido.add(opcao);
         }
     }
-    public void remover(Opcao opcao){
-        pedido.remove(opcao);
+
+    @Override
+    public void inserir(){
+        Opcao escolha = Executavel.escolherOpcao();
+
+        if (pedido.contains(escolha)){
+            int posicao = pedido.indexOf(escolha);
+            Opcao opcao = pedido.get(posicao);
+            opcao.setQuantidade(opcao.getQuantidade()+1);
+        } else {
+            escolha.setQuantidade(1);
+            pedido.add(escolha);
+        }
     }
+    @Override
+    public void remover(){
+        pedido.remove(Executavel.escolherOpcao());
+    }
+
     @Override
     public String toString(){
         double total = 0;
